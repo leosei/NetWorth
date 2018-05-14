@@ -1,23 +1,22 @@
 package com.google.android.networth;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
-//import com.google.api.services.bigquery.Bigquery;
-//import com.google.api.services.bigquery.model.TableRow;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 
-public class BigQuerySync extends AsyncTask<String,Void,String> {
+public class HTTPRequest extends AsyncTask<String,Void,String> {
+
+
 
     public static final String REQUEST_METHOD = "GET";
     public static final int READ_TIMEOUT = 15000;
     public static final int CONNECTION_TIMEOUT = 15000;
+
 
     @Override
     protected String doInBackground(String... params){
@@ -66,34 +65,3 @@ public class BigQuerySync extends AsyncTask<String,Void,String> {
     }
 }
 
-
-/*
-public class BigQuerySync extends AsyncTask<String,void,List<TableRow>> {
-
-    Bigquery mBigQuery;
-    BigQueryFactory mFactory;
-
-
-    protected void  onPreExecute() {
-        // Create a new Bigquery client authorized via Application Default Credentials.
-        mFactory = new BigQueryFactory();
-        mBigQuery = mFactory.createAuthorizedClient();
-
-    }
-
-    protected TableRow doInBackground(String projectId) {
-        List<TableRow> rows = mFactory.executeQuery(
-                        "SELECT Total FROM NetWorthTracker.Stats\n" +
-                                "ORDER BY Date\n"+
-                                " DESC LIMIT 1\n",
-                        mBigQuery,
-                        projectId);
-        return rows
-    }
-
-
-
-    protected void onPostExecute(List<TableRow> rows){
-        mFactory.displayResults(rows);
-    }
-}*/

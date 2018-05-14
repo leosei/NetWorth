@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         //String to place our result in
         String result = "" ;
         //Instantiate new instance of our class
-        BigQuerySync getRequest = new BigQuerySync();
+        HTTPRequest getRequest = new HTTPRequest();
         //Perform the doInBackground method, passing in our url
         try {
             result = getRequest.execute(myUrl).get();
