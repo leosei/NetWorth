@@ -3,6 +3,7 @@
     package="com.google.android.networth">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCOUNT_MANAGER" />
 
     <application
         android:allowBackup="true"

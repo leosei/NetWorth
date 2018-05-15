@@ -7,21 +7,35 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today's Networth"
+        android:textStyle="bold"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.3"
+        />
+    <TextView
         android:id="@+id/networth"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="200 Euro"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="200k Eur"
+        android:textStyle="bold"
+        android:textSize="25sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.065" />
+        app:layout_constraintTop_toBottomOf="@id/Title"
+        />
 
     <TextView
         android:id="@+id/yesterday"
         android:layout_width="wrap_content"
-        android:layout_height="31dp"
-        android:text="200 Euro"
+        android:layout_height="wrap_content"
+        android:text="0.1% change from yesterday (200k Eur)"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

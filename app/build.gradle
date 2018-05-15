@@ -34,12 +34,19 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
+    // Google Play services Auth split
+    implementation 'com.google.android.gms:play-services-auth:15.0.0'
     // Google Api Client library and Android extension
-    //implementation 'com.google.api-client:google-api-client:1.22.0'
-    implementation 'com.google.api-client:google-api-client-android:1.22.0'
+    implementation ('com.google.api-client:google-api-client:1.22.0'){
+        exclude module: 'guava-jdk5'
+    }
+    implementation ('com.google.api-client:google-api-client-android:1.22.0'){
+        exclude module: 'guava-jdk5'
+    }
+    implementation ('com.google.cloud:gcloud-java-bigquery:0.2.1') {
+        exclude group: 'com.google.api-client', module: 'google-api-client-appengine'
+    }
 
-    // Bigquery APIs
-    //implementation 'com.google.cloud:google-cloud-bigquery:1.28.0'
 
     // Testing section
     testImplementation 'junit:junit:4.12'
