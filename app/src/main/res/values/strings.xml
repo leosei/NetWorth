@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">NetWorth</string>
+    <string name="today">Today\'s Networth</string>
 </resources>

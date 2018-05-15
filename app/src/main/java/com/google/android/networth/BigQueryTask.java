@@ -22,16 +22,19 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-public class BigQueryTask extends AsyncTask<Context, Void, QueryResult> {
+public class BigQueryTask extends AsyncTask<MainActivity, Void, QueryResult> {
     private final String CREDENTIALS_FILE = "AccountTools-3b0d75c06ec7.json";
     private final String PROJECT_ID = "accounttools-1370";
 
     private Context mContext;
+    private MainActivity mActivity;
 
     @Override
-    protected QueryResult doInBackground(Context... contexts) {
+    protected QueryResult doInBackground(MainActivity... mainActivities) {
         QueryResult result = null;
-        this.mContext = contexts[0];
+        this.mActivity = mainActivities[0];
+        this.mContext = mActivity.getApplicationContext();
+
 
         try {
             AssetManager am = mContext.getAssets();
@@ -87,6 +90,26 @@ public class BigQueryTask extends AsyncTask<Context, Void, QueryResult> {
     @Override
     protected void onPostExecute(QueryResult results) {
         Log.d("bq", "results ready");
+
+        int count = 0;
+        //ValueHolder valueholder = mActivity.valueholder;
+
+        // Go through Query results
+        Iterator<List<FieldValue>> results_iterator = results.iterateAll();
+        while (results_iterator.hasNext()) {
+            List<FieldValue> row = results_iterator.next();
+
+            // First value is today's total
+            if (count == 0) {
+                mActivity.valueholder.setTotal( row.get(0).doubleValue() );
+            }
+            // Second values is yesterday's total
+            else {
+                mActivity.valueholder.setYesterday( row.get(0).doubleValue() );
+            }
+            count++;
+        }
+        mActivity.valueholder.format();
 
     }
 
