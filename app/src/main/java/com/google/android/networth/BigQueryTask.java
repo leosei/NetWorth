@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class BigQueryTask extends AsyncTask<MainActivity, Void, QueryResult> {
-    private final String CREDENTIALS_FILE = "AccountTools-3b0d75c06ec7.json";
+    private final String CREDENTIALS_FILE = "AccountTools-9673ba909d81.json";
     private final String PROJECT_ID = "accounttools-1370";
 
     private Context mContext;
