@@ -14,11 +14,11 @@ public class ValueHolder extends BaseObservable {
 
 
     public void setTotal(double total) {
-        mTotal = total;
+        //mTotal = total;
     }
 
     public void setYesterday(double yesterday) {
-        mTotal_1 = yesterday;
+        //mTotal_1 = yesterday;
     }
 
     public void calculateDelta(){
