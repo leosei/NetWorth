@@ -22,19 +22,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
-public class BigQueryTask extends AsyncTask<MainActivity, Void, QueryResult> {
+public class BigQueryTask extends AsyncTask<String, Void, QueryResult> {
     private final String CREDENTIALS_FILE = "AccountTools-9673ba909d81.json";
     private final String PROJECT_ID = "accounttools-1370";
 
     private Context mContext;
     private MainActivity mActivity;
 
-    @Override
-    protected QueryResult doInBackground(MainActivity... mainActivities) {
-        QueryResult result = null;
-        this.mActivity = mainActivities[0];
-        this.mContext = mActivity.getApplicationContext();
+    public  BigQueryTask (MainActivity mainactivity){
+        mActivity = mainactivity;
+        mContext = mainactivity.getApplicationContext();
+    }
 
+    @Override
+    protected QueryResult doInBackground(String... query) {
+        QueryResult result = null;
 
         try {
             AssetManager am = mContext.getAssets();
@@ -47,12 +49,7 @@ public class BigQueryTask extends AsyncTask<MainActivity, Void, QueryResult> {
             Log.d("BQ","created bigquery service");
 
             QueryJobConfiguration queryConfig =
-                    QueryJobConfiguration.builder(
-                            "SELECT "
-                                    + "Total "
-                                    + "FROM NetWorthTracker.Stats "
-                                    + "ORDER BY Date DESC "
-                                    + "LIMIT 2")
+                    QueryJobConfiguration.builder(query[0])
                             .build();
 
             Log.d("BQ","query ready");
@@ -92,7 +89,6 @@ public class BigQueryTask extends AsyncTask<MainActivity, Void, QueryResult> {
         Log.d("bq", "results ready");
 
         int count = 0;
-        //ValueHolder valueholder = mActivity.valueholder;
 
         // Go through Query results
         Iterator<List<FieldValue>> results_iterator = results.iterateAll();
@@ -106,11 +102,10 @@ public class BigQueryTask extends AsyncTask<MainActivity, Void, QueryResult> {
             // Second values is yesterday's total
             else {
                 mActivity.valueholder.setYesterday( row.get(0).doubleValue() );
+                mActivity.valueholder.calculateDelta();
             }
             count++;
         }
-        mActivity.valueholder.format();
-
     }
 
 }

@@ -3,12 +3,14 @@ package com.google.android.networth;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
 import com.google.android.networth.databinding.ActivityMainBinding;
-import java.util.concurrent.ExecutionException;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
     ValueHolder valueholder;
 
     @Override
@@ -16,23 +18,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Bind to a new valueholder instance
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        // new valueholder and bind to it.
         valueholder = new ValueHolder();
+        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setValueholder(valueholder);
 
-        try {
-            // Get the data from Big Query.
-            new BigQueryTask().execute(this).get();
+        // Update values
+        valueholder.updateValues(this);
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
+        /*
+        Button button = findViewById(R.id.updateButton);
+        button.setOnClickListener( new View.OnClickListener(){
+            public void onClick(View v){
+                valueholder.updateValues(super.this);
+            }
+        });*/
     }
-
-
 
 }
