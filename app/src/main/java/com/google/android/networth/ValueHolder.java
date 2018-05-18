@@ -11,14 +11,18 @@ public class ValueHolder extends BaseObservable {
     private double mTotal_1 = 0;
     private double mDod = 0;
 
+    private MainActivity mActivity;
 
+    public ValueHolder(MainActivity activity){
+        mActivity = activity;
+    }
 
     public void setTotal(double total) {
-        //mTotal = total;
+        mTotal = total;
     }
 
     public void setYesterday(double yesterday) {
-        //mTotal_1 = yesterday;
+        mTotal_1 = yesterday;
     }
 
     public void calculateDelta(){
@@ -43,9 +47,9 @@ public class ValueHolder extends BaseObservable {
         return "Yesterday: "+yesterday+" ("+delta_percent_formatted+")";
     }
 
-    public void updateValues(MainActivity mainActivity){
+    public void updateValues(){
         // Get the data from Big Query.
-        BigQueryTask bigquerytask = new BigQueryTask(mainActivity);
+        BigQueryTask bigquerytask = new BigQueryTask(mActivity);
         bigquerytask.execute( getQuery() );
 
     }

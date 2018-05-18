@@ -19,20 +19,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // new valueholder and bind to it.
-        valueholder = new ValueHolder();
+        valueholder = new ValueHolder(this);
         ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setValueholder(valueholder);
-
         // Update values
-        valueholder.updateValues(this);
+        //valueholder.updateValues();
 
-        /*
         Button button = findViewById(R.id.updateButton);
-        button.setOnClickListener( new View.OnClickListener(){
-            public void onClick(View v){
-                valueholder.updateValues(super.this);
-            }
-        });*/
+        button.setOnClickListener( new RefreshListener(valueholder));
     }
 
 }
