@@ -53,8 +53,33 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    androidTestImplementation ('com.android.support.test:rules:1.0.2')
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
 
     // Annotation processor dependencies
     annotationProcessor 'com.google.auto.value:auto-value:1.5.2'
+}
+
+
+//Playground Gradle
+task HelloWorld{
+    ext.firstName = "Leo"
+    doLast{
+        println("HELLO WORLD $firstName")
+    }
+}
+
+HelloWorld.dependsOn(":app:Foo")
+
+task Foo{
+    doLast{
+        println("I'm a uselesss task called Foo")
+    }
+}
+
+
+gradle.taskGraph.whenReady {taskGraph ->
+    println("GRAPH READY")
+    HelloWorld.firstName = "Leo_Bar"
+    //HelloWorld.dependsOn(Foo)
+    HelloWorld.execute()
 }
